@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<<<<<<< HEAD
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+=======
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD Test</title>
+</head>
+<body>
+  <h1>User Management (CRUD)</h1>
+
+  <!-- Create User -->
+  <h2>Create User</h2>
+  <form id="userForm">
+    <input type="text" name="name" placeholder="Name" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <button type="submit">Create User</button>
+  </form>
+  <div id="output"></div>
+
+  <hr>
+
+  <!-- Read Users -->
+  <h2>All Users</h2>
+  <button id="getUsersBtn">Load Users</button>
+  <ul id="userList"></ul>
+
+  <!-- Update User -->
+  <h2>Update User</h2>
+  <input type="text" id="updateId" placeholder="User ID" />
+  <input type="text" id="updateName" placeholder="New Name" />
+  <input type="email" id="updateEmail" placeholder="New Email" />
+  <button id="updateBtn">Update User</button>
+
+  <!-- Delete User -->
+  <h2>Delete User</h2>
+  <input type="text" id="deleteId" placeholder="User ID" />
+  <button id="deleteBtn">Delete User</button>
+
+  <script>
+    const form = document.getElementById("userForm");
+    const output = document.getElementById("output");
+    const userList = document.getElementById("userList");
+
+    // Create User
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = {
+        name: form.name.value,
+        email: form.email.value,
+        password: form.password.value
+      };
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+      const data = await res.json();
+      output.innerHTML = res.ok 
+        ? `<p style="color:green;">✅ User Created: <b>${data.user.name}</b> (${data.user.email})</p>`
+        : `<p style="color:red;">❌ Error: ${data.message}</p>`;
+    });
+
+    // Read Users
+    document.getElementById("getUsersBtn").addEventListener("click", async () => {
+      const res = await fetch("/api/users");
+      const data = await res.json();
+      userList.innerHTML = "";
+      data.users.forEach(u => {
+        const li = document.createElement("li");
+        li.textContent = `${u.name} - ${u.email} (ID: ${u.id || "demo"})`;
+        userList.appendChild(li);
+      });
+    });
+
+    // Update User
+    document.getElementById("updateBtn").addEventListener("click", async () => {
+      const id = document.getElementById("updateId").value;
+      const updatedData = {
+        name: document.getElementById("updateName").value,
+        email: document.getElementById("updateEmail").value
+      };
+      const res = await fetch(`/api/users/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData)
+      });
+      const data = await res.json();
+      output.innerHTML = `<p style="color:blue;">${data.message}</p>`;
+    });
+
+    // Delete User
+    document.getElementById("deleteBtn").addEventListener("click", async () => {
+      const id = document.getElementById("deleteId").value;
+      const res = await fetch(`/api/users/${id}`, { method: "DELETE" });
+      const data = await res.json();
+      output.innerHTML = `<p style="color:red;">${data.message}</p>`;
+    });
+  </script>
+</body>
+>>>>>>> d955ae15e2e1c1a1d2742627d337de857223af60
+</html>
