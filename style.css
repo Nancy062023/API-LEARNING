@@ -1,0 +1,15 @@
+h3 {
+    color: maroon;
+}
+.posts {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    background-color: #f0f0f0;
+}
+.user {
+    color: maroon;
+}
+.content {
+    font-size: 16px;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quora Posts</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+<h1>All Posts</h1>
+
+<% for (let post of posts) { %>
+    <div class="posts">
+        <h3 class="user">   <%= post.user %></h3>
+        <p class="content">  <%= post.content %></p>
+
+        <a href="/posts/<%= post.id %>">See Details</a> 
+        <a href="/posts/<%= post.id %>/edit">Edit</a>
+
+        <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button>Delete</button>
+        </form>
+    </div>
+    <hr>
+<% } %>
+
+<br/>
+<a href="/posts/new">Create New Post</a>
+</body>
+</html>
