@@ -7,7 +7,6 @@ const port = 8000;
 
 
 
-//Serving static files 
 //app.use(express.static("folder_name "));
 app.use (express.static (path.join (__dirname, "public")));
 
