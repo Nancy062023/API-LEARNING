@@ -1,4 +1,5 @@
 module.exports = {
     name: "mango",
-    color: "yellow",
+    color: "yellow" ,
+    rang: "red",
 };
